@@ -360,7 +360,7 @@
             <h3>Solar filament segmentation</h3>
             <a class="project-link" href="https://www.kaggle.com/code/neeldipeshshah/lb-0-27-a-complete-deep-dive-eda-u-net" target="_blank" rel="noopener">Kaggle notebook ↗</a>
           </div>
-          <img class="proj-img" src="assets/solar-segmentation.png" alt="Predicted solar filament segmentation masks overlaid on full-disk solar image, with bounding boxes around detected filaments">
+          <img class="proj-img" src="solar-segmentation.png" alt="Predicted solar filament segmentation masks overlaid on full-disk solar image, with bounding boxes around detected filaments">
           <p>End-to-end image segmentation pipeline for a live Kaggle competition (MAGFiLO 2026), converting 1,154 annotated solar images into 18,464 leak-free tiles via COCO-polygon-to-mask conversion and overlapping-tile full-resolution inference. Trained a from-scratch PyTorch U-Net with combined BCE + Dice loss, reaching 0.6414 validation Dice / 0.4815 validation IoU. Competition is still open — pipeline under active tuning.</p>
           <div class="tag-row">
             <span class="tag">Python</span>
@@ -377,7 +377,7 @@
             <h3>AerialScene — aerial object detection</h3>
             <a class="project-link" href="https://www.kaggle.com/code/neeldipeshshah/aerial-sense-object-detection-on-isaid-data-ipy" target="_blank" rel="noopener">Kaggle notebook ↗</a>
           </div>
-          <img class="proj-img" src="assets/aerialscene-detection.png" alt="Aerial parking-lot image from the iSAID dataset with predicted bounding boxes around vehicles">
+          <img class="proj-img" src="aerialscene-detection.png" alt="Aerial parking-lot image from the iSAID dataset with predicted bounding boxes around vehicles">
           <p>Object-detection pipeline on the iSAID aerial imagery dataset, in active refinement. Implements overlap-aware tiling with a leak-free split, hard-negative mining, and a transfer-learning Faster R-CNN (ResNet50-FPN) detector evaluated under real COCO-protocol mAP, plus a from-scratch full-image inference pipeline with cross-tile NMS merging to reconstruct detections across tile boundaries.</p>
           <div class="tag-row">
             <span class="tag">Python</span>
@@ -394,7 +394,7 @@
             <h3>BhashaSetu — English → Gujarati NMT</h3>
             <a class="project-link" href="https://github.com/Neel58/BhashaSetu" target="_blank" rel="noopener">github.com/Neel58/BhashaSetu ↗</a>
           </div>
-          <img class="proj-img" src="assets/bhashasetu-demo.png" alt="BhashaSetu Streamlit demo showing an English sentence translated into Gujarati">
+          <img class="proj-img" src="bhashasetu-demo.png" alt="BhashaSetu Streamlit demo showing an English sentence translated into Gujarati">
           <p>From-scratch Transformer encoder-decoder (2 blocks, 8-head attention, ~13M params) for English-to-Gujarati translation, trained on 1.5M sentence pairs within a 9-hour GPU budget. Reached 87.5% token-level validation accuracy by epoch 2 of 5 using mixed-precision training and the warmup/inverse-sqrt LR schedule from "Attention Is All You Need." Shipped as a live Streamlit demo with greedy and beam-search decoding.</p>
           <div class="tag-row">
             <span class="tag">Python</span>
@@ -412,7 +412,7 @@
             <h3>Voltrix — power consumption forecasting</h3>
             <a class="project-link" href="https://github.com/Neel58/Voltrix-Household-Power-Consumption-Forecasting" target="_blank" rel="noopener">github.com/Neel58/Voltrix ↗</a>
           </div>
-          <img class="proj-img" src="assets/voltrix-forecast.png" alt="Line chart comparing GRU-predicted vs actual household power consumption over a week-long test period" style="background:#fff;">
+          <img class="proj-img" src="voltrix-forecast.png" alt="Line chart comparing GRU-predicted vs actual household power consumption over a week-long test period" style="background:#fff;">
           <p>Next-hour power-consumption forecasting pipeline on the UCI Household Electric Power Consumption dataset, benchmarking naive baselines against XGBoost and a GRU sequence model across a 48-hour input window. Diagnosed near-collinear predictor features through targeted ablation studies, isolating genuine forecasting signal from leakage-prone correlated sensors.</p>
           <div class="tag-row">
             <span class="tag">Python</span>
