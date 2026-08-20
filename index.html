@@ -1,52 +1,480 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neel Shah — AI/ML Engineer</title>
+<meta name="description" content="Neel Shah — B.Tech Computer Engineering student building ML/CV projects from scratch: segmentation, object detection, and Transformer-based translation.">
+<meta property="og:title" content="Neel Shah — AI/ML Engineer">
+<meta property="og:description" content="Self-taught ML/CV portfolio: from-scratch U-Nets, Transformers, and object detection, built from primary sources.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/solar-segmentation.png">
+<meta name="twitter:image" content="assets/solar-segmentation.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230E7C6B%22/><text x=%2250%22 y=%2266%22 font-size=%2255%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22sans-serif%22>N</text></svg>">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Neel Shah",
+  "url": "https://neelshah.dev",
+  "sameAs": [
+    "https://github.com/Neel58",
+    "https://www.linkedin.com/in/neel-shah-71a7b11b2",
+    "https://www.kaggle.com/neeldipeshshah"
+  ],
+  "jobTitle": "Computer Engineering Student",
+  "affiliation": "Dharmsinh Desai University"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #F7F7F3;
+    --surface: #FFFFFF;
+    --ink: #15191A;
+    --ink-soft: #3D4444;
+    --muted: #6B7280;
+    --teal: #0E7C6B;
+    --teal-dark: #0A5C4F;
+    --amber: #E8A33D;
+    --amber-text: #9A6512;
+    --border: #E4E2D8;
+    --radius: 14px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; color:var(--ink);}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  a{color:var(--teal); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+  section{padding:88px 0;}
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--teal-dark);
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    margin-bottom:12px;
+    display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{content:''; width:18px; height:1px; background:var(--teal); display:inline-block;}
 
-    <style>
-        body{
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(247,247,243,0.88);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{position:relative;}
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:18px 24px;}
+  .nav-name{font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:17px;}
+  .nav-links{display:flex; gap:28px; font-size:14px; color:var(--ink-soft);}
+  .nav-links a{color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--teal); text-decoration:none;}
+  .nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px; color:var(--ink); font-size:22px; line-height:1;}
 
-        h1{
-            color: #333;
-        }
+  /* HERO */
+  .hero{padding:96px 0 88px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:56px; align-items:center;}
+  .hero h1{font-size:44px; font-weight:600; line-height:1.15; margin-bottom:18px;}
+  .hero h1 span{color:var(--teal);}
+  .hero p.lede{font-size:17px; color:var(--ink-soft); max-width:44ch; margin-bottom:32px;}
+  .hero-cta{display:flex; gap:12px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter', sans-serif; font-weight:500; font-size:14px;
+    padding:11px 20px; border-radius:9px; border:1px solid var(--border);
+    background:var(--surface); color:var(--ink); cursor:pointer;
+    transition:all 0.15s ease;
+  }
+  .btn:hover{border-color:var(--teal); color:var(--teal); text-decoration:none;}
+  .btn-primary{background:var(--teal); color:#fff; border-color:var(--teal);}
+  .btn-primary:hover{background:var(--teal-dark); color:#fff; border-color:var(--teal-dark);}
 
-        button{
-            padding: 10px 20px;
-            background-color: blue;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+  /* TERMINAL SIGNATURE ELEMENT */
+  .terminal{
+    background:#15191A;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.12);
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:6px;
+    padding:11px 14px; background:#1E2423; border-bottom:1px solid #2A302F;
+  }
+  .terminal-dot{width:9px; height:9px; border-radius:50%;}
+  .terminal-body{padding:20px 18px; font-family:'JetBrains Mono', monospace; font-size:12.5px; line-height:1.85;}
+  .t-prompt{color:#5DCAA5;}
+  .t-key{color:#9FE1CB;}
+  .t-val{color:#E8E6DC;}
+  .t-comment{color:#6B7280;}
+  .t-cursor{display:inline-block; width:7px; height:14px; background:#5DCAA5; vertical-align:-2px; animation:blink 1.1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  @media (prefers-reduced-motion: reduce){
+    .t-cursor, .ach-dot{ animation: none; opacity: 1; }
+  }
 
-        button:hover{
-            background-color: darkblue;
-        }
-    </style>
+  /* SECTION HEADERS */
+  .sec-title{font-size:28px; font-weight:600; margin-bottom:6px;}
+  .sec-sub{color:var(--muted); font-size:15px; margin-bottom:40px; max-width:56ch;}
+
+  /* ABOUT */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  .about-grid p{color:var(--ink-soft); margin-bottom:16px; font-size:15.5px;}
+  .stat-list{display:flex; flex-direction:column; gap:18px;}
+  .stat{display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--border); padding-bottom:14px;}
+  .stat-label{font-size:13.5px; color:var(--muted);}
+  .stat-val{font-family:'JetBrains Mono', monospace; font-size:14px; color:var(--ink);}
+
+  /* SKILLS */
+  .skills-groups{display:grid; grid-template-columns:repeat(3, 1fr); gap:28px;}
+  .skill-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px;}
+  .skill-card h3{font-size:14px; font-weight:600; margin-bottom:14px; color:var(--teal-dark);}
+  .tag-row{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'JetBrains Mono', monospace; font-size:12px;
+    background:#EEF6F3; color:var(--teal-dark);
+    padding:5px 10px; border-radius:6px; border:1px solid #D9EBE4;
+  }
+
+  /* PROJECTS */
+  .project-list{display:flex; flex-direction:column; gap:20px;}
+  .project-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px 28px; display:grid; grid-template-columns:auto 1fr; gap:22px;
+  }
+  .project-idx{font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--muted); padding-top:3px;}
+  .project-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:8px;}
+  .project-head h3{font-size:18px; font-weight:600;}
+  .project-link{font-family:'JetBrains Mono', monospace; font-size:12.5px; white-space:nowrap;}
+  .project-card p{color:var(--ink-soft); font-size:14.5px; margin-bottom:14px;}
+  .img-slot{
+    width:100%; aspect-ratio:16/9; border-radius:10px; margin-bottom:14px;
+    border:1.5px dashed var(--border); background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--muted); text-align:center; padding:12px;
+  }
+  .img-slot img{width:100%; height:100%; object-fit:cover; border-radius:8.5px;}
+  .proj-img{
+    width:100%; max-height:340px; object-fit:contain; border-radius:10px;
+    margin-bottom:14px; border:1px solid var(--border); background:#0B0E0E;
+    display:block;
+  }
+
+  /* ACHIEVEMENTS */
+  .ach-grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:36px;}
+  .ach-card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:20px;}
+  .ach-rank{font-family:'JetBrains Mono', monospace; font-size:22px; font-weight:500; color:var(--teal-dark); margin-bottom:6px;}
+  .ach-live{display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono', monospace; font-size:10.5px; color:var(--amber-text); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:8px;}
+  .ach-dot{width:6px; height:6px; border-radius:50%; background:var(--amber); animation:blink 1.4s steps(1) infinite;}
+  .ach-desc{font-size:13.5px; color:var(--ink-soft);}
+  .misc-row{display:flex; flex-wrap:wrap; gap:10px;}
+  .misc-pill{
+    font-size:13px; color:var(--ink-soft); background:var(--surface);
+    border:1px solid var(--border); border-radius:8px; padding:9px 14px;
+  }
+
+  /* CONTACT / FOOTER */
+  .contact{text-align:center;}
+  .contact h2{font-size:32px; margin-bottom:14px;}
+  .contact p{color:var(--ink-soft); max-width:46ch; margin:0 auto 32px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+  footer{border-top:1px solid var(--border); padding:28px 0; text-align:center; color:var(--muted); font-size:13px;}
+
+  @media (max-width:760px){
+    .hero-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+    .about-grid{grid-template-columns:1fr;}
+    .skills-groups{grid-template-columns:1fr;}
+    .ach-grid{grid-template-columns:1fr;}
+    .project-card{grid-template-columns:1fr;}
+    .nav-links{
+      display:none; position:absolute; top:100%; left:0; right:0;
+      background:var(--surface); flex-direction:column; gap:0;
+      border-bottom:1px solid var(--border);
+    }
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:14px 24px; border-top:1px solid var(--border);}
+    .nav-toggle{display:block;}
+    section{padding:56px 0;}
+  }
+</style>
 </head>
-
 <body>
 
-    <h1>Welcome to My Website</h1>
-    <p>This is a simple index.html page.</p>
+<nav>
+  <div class="wrap">
+    <div class="nav-name">Neel Shah</div>
+    <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
+  </div>
+</nav>
+<script>
+(function(){
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  function closeMenu(){
+    links.classList.remove('open');
+    toggle.textContent = '☰';
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+  function toggleMenu(){
+    const isOpen = links.classList.toggle('open');
+    toggle.textContent = isOpen ? '✕' : '☰';
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  }
+  toggle.addEventListener('click', toggleMenu);
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+})();
+</script>
 
-    <img src="https://via.placeholder.com/300" alt="Sample Image">
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">ML / Computer Vision Student · Dharmsinh Desai University</div>
+      <h1>Learning ML from the inside out<span>.</span></h1>
+      <p class="lede">Started with tutorials, moved to textbooks, docs, and papers when I wanted to know what was actually happening underneath. Now applying that across computer vision, NLP, and time-series forecasting — currently top 5% on a live Kaggle leaderboard.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projects">View projects</a>
+        <a class="btn" href="#contact">Get in touch</a>
+        <a class="btn" href="https://github.com/Neel58" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn" href="https://www.kaggle.com/neeldipeshshah" target="_blank" rel="noopener">Kaggle ↗</a>
+        <a class="btn" href="neel-shah-resume.pdf" target="_blank" rel="noopener">Résumé ↗</a>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="terminal-dot" style="background:#F0997B"></div>
+        <div class="terminal-dot" style="background:#FAC775"></div>
+        <div class="terminal-dot" style="background:#5DCAA5"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">$</span> <span class="t-val">train --model unet_solar_filament</span></div>
+        <div class="t-comment">bce_dice loss, 512x512 tiles — MAGFiLO 2026 (open)</div>
+        <div><span class="t-key">val_dice</span>: <span class="t-val">0.6414</span> <span class="t-key">val_iou</span>: <span class="t-val">0.4815</span></div>
+        <div class="t-comment">full curve → kaggle.com/code/neeldipeshshah</div>
+        <div>&nbsp;</div>
+        <div><span class="t-prompt">$</span> <span class="t-val">status --competition f1-pitstop</span></div>
+        <div><span class="t-key">rank</span>: <span class="t-val">337/3,022</span> <span class="t-comment">(top 11%, final)</span></div>
+        <div><span class="t-prompt">$</span> <span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <br><br>
+<main>
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow">About</div>
+    <h2 class="sec-title">A little about me</h2>
+    <div class="about-grid">
+      <div>
+        <p>I got into ML the way most people do — tutorials, copy-pasted code, models that worked without me fully knowing why. What changed things was hitting a wall I couldn't tutorial my way past, which sent me to the original papers and documentation instead. That's still how I learn: pick something I don't fully understand, rebuild it from scratch, and see where my mental model breaks.</p>
+        <p>That's why most of the projects here are implemented from scratch rather than fine-tuned off the shelf — the Transformer in BhashaSetu, the U-Net in the solar segmentation pipeline. I'd rather spend longer and actually understand what I shipped.</p>
+      </div>
+      <div class="stat-list">
+        <div class="stat"><span class="stat-label">Education</span><span class="stat-val">DDU · CPI 7.96/10</span></div>
+        <div class="stat"><span class="stat-label">Focus</span><span class="stat-val">Applied ML / Computer vision</span></div>
+        <div class="stat"><span class="stat-label">GitHub</span><span class="stat-val"><a href="https://github.com/Neel58" target="_blank" rel="noopener">@Neel58</a></span></div>
+        <div class="stat"><span class="stat-label">Kaggle</span><span class="stat-val"><a href="https://www.kaggle.com/neeldipeshshah" target="_blank" rel="noopener">@neeldipeshshah</a></span></div>
+        <div class="stat"><span class="stat-label">LinkedIn</span><span class="stat-val"><a href="https://www.linkedin.com/in/neel-shah-71a7b11b2" target="_blank" rel="noopener">neel-shah-71a7b</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <button onclick="showMessage()">Click Me</button>
+<section id="skills" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="eyebrow">Skills</div>
+    <h2 class="sec-title">What I work with</h2>
+    <p class="sec-sub">Tools and frameworks I use regularly across the ML lifecycle.</p>
+    <div class="skills-groups">
+      <div class="skill-card">
+        <h3>ML / deep learning</h3>
+        <div class="tag-row">
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Keras</span>
+          <span class="tag">PyTorch</span>
+          <span class="tag">CNNs</span>
+          <span class="tag">RNN / GRU / LSTM</span>
+          <span class="tag">Transformers</span>
+          <span class="tag">Autoencoders</span>
+          <span class="tag">GANs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Classical ML / data</h3>
+        <div class="tag-row">
+          <span class="tag">scikit-learn</span>
+          <span class="tag">XGBoost</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">PCA</span>
+          <span class="tag">K-Means / DBSCAN / GMM</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Languages / backend</h3>
+        <div class="tag-row">
+          <span class="tag">Python</span>
+          <span class="tag">Java</span>
+          <span class="tag">C++</span>
+          <span class="tag">Spring Boot</span>
+          <span class="tag">Django</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script>
-        function showMessage(){
-            alert("Hello! You clicked the button.");
-        }
-    </script>
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">Projects</div>
+    <h2 class="sec-title">Selected work</h2>
+    <p class="sec-sub">A few things I've built, from a live Kaggle segmentation pipeline to a from-scratch transformer.</p>
+    <div class="project-list">
+
+      <div class="project-card">
+        <div class="project-idx">01</div>
+        <div>
+          <div class="project-head">
+            <h3>Solar filament segmentation</h3>
+            <a class="project-link" href="https://www.kaggle.com/code/neeldipeshshah/lb-0-27-a-complete-deep-dive-eda-u-net" target="_blank" rel="noopener">Kaggle notebook ↗</a>
+          </div>
+          <img class="proj-img" src="assets/solar-segmentation.png" alt="Predicted solar filament segmentation masks overlaid on full-disk solar image, with bounding boxes around detected filaments">
+          <p>End-to-end image segmentation pipeline for a live Kaggle competition (MAGFiLO 2026), converting 1,154 annotated solar images into 18,464 leak-free tiles via COCO-polygon-to-mask conversion and overlapping-tile full-resolution inference. Trained a from-scratch PyTorch U-Net with combined BCE + Dice loss, reaching 0.6414 validation Dice / 0.4815 validation IoU. Competition is still open — pipeline under active tuning.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">U-Net</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-idx">02</div>
+        <div>
+          <div class="project-head">
+            <h3>AerialScene — aerial object detection</h3>
+            <a class="project-link" href="https://www.kaggle.com/code/neeldipeshshah/aerial-sense-object-detection-on-isaid-data-ipy" target="_blank" rel="noopener">Kaggle notebook ↗</a>
+          </div>
+          <img class="proj-img" src="assets/aerialscene-detection.png" alt="Aerial parking-lot image from the iSAID dataset with predicted bounding boxes around vehicles">
+          <p>Object-detection pipeline on the iSAID aerial imagery dataset, in active refinement. Implements overlap-aware tiling with a leak-free split, hard-negative mining, and a transfer-learning Faster R-CNN (ResNet50-FPN) detector evaluated under real COCO-protocol mAP, plus a from-scratch full-image inference pipeline with cross-tile NMS merging to reconstruct detections across tile boundaries.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">torchvision</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-idx">03</div>
+        <div>
+          <div class="project-head">
+            <h3>BhashaSetu — English → Gujarati NMT</h3>
+            <a class="project-link" href="https://github.com/Neel58/BhashaSetu" target="_blank" rel="noopener">github.com/Neel58/BhashaSetu ↗</a>
+          </div>
+          <img class="proj-img" src="assets/bhashasetu-demo.png" alt="BhashaSetu Streamlit demo showing an English sentence translated into Gujarati">
+          <p>From-scratch Transformer encoder-decoder (2 blocks, 8-head attention, ~13M params) for English-to-Gujarati translation, trained on 1.5M sentence pairs within a 9-hour GPU budget. Reached 87.5% token-level validation accuracy by epoch 2 of 5 using mixed-precision training and the warmup/inverse-sqrt LR schedule from "Attention Is All You Need." Shipped as a live Streamlit demo with greedy and beam-search decoding.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">TensorFlow / Keras</span>
+            <span class="tag">Streamlit</span>
+          </div>
+          <a class="project-link" href="https://english-gujarati-nmt-fl9rkfkmgimvgdqngbkepp.streamlit.app" target="_blank" rel="noopener" style="display:inline-block; margin-top:6px;">Live demo ↗</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-idx">04</div>
+        <div>
+          <div class="project-head">
+            <h3>Voltrix — power consumption forecasting</h3>
+            <a class="project-link" href="https://github.com/Neel58/Voltrix-Household-Power-Consumption-Forecasting" target="_blank" rel="noopener">github.com/Neel58/Voltrix ↗</a>
+          </div>
+          <img class="proj-img" src="assets/voltrix-forecast.png" alt="Line chart comparing GRU-predicted vs actual household power consumption over a week-long test period" style="background:#fff;">
+          <p>Next-hour power-consumption forecasting pipeline on the UCI Household Electric Power Consumption dataset, benchmarking naive baselines against XGBoost and a GRU sequence model across a 48-hour input window. Diagnosed near-collinear predictor features through targeted ablation studies, isolating genuine forecasting signal from leakage-prone correlated sensors.</p>
+          <div class="tag-row">
+            <span class="tag">Python</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">TensorFlow / Keras</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="achievements" style="background:var(--surface); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="wrap">
+    <div class="eyebrow">Achievements</div>
+    <h2 class="sec-title">Kaggle & competitive activity</h2>
+    <p class="sec-sub">Active across six Kaggle competitions — <a href="https://www.kaggle.com/neeldipeshshah" target="_blank" rel="noopener">@neeldipeshshah ↗</a></p>
+    <div class="ach-grid">
+      <div class="ach-card">
+        <div class="ach-live"><span class="ach-dot"></span>Live now</div>
+        <div class="ach-rank">Top 5%</div>
+        <div class="ach-desc">113 of 2,346 — Playground Series, predicting smartphone addiction <span style="font-size:11px; color:var(--muted);">(as of Aug 2026)</span></div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-rank">Top 11%</div>
+        <div class="ach-desc">337 of 3,022 — Playground Series, forecasting F1 pit-stop timing</div>
+      </div>
+      <div class="ach-card">
+        <div class="ach-rank">Top 15%</div>
+        <div class="ach-desc">621 of 4,317 — Playground Series, predicting student test scores</div>
+      </div>
+    </div>
+    <div class="misc-row">
+      <div class="misc-pill">120+ problems solved on LeetCode</div>
+      <div class="misc-pill">DUHacks 4.0</div>
+      <div class="misc-pill">ISRO Bharatiya Antariksh Hackathon</div>
+      <div class="misc-pill">Tic-Tech-Toe '24</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="eyebrow" style="justify-content:center;">Contact</div>
+    <h2>Let's talk</h2>
+    <p>Open to internships, collaborations, and interesting ML problems. The fastest way to reach me is email or LinkedIn.</p>
+    <div class="contact-links">
+      <a class="btn btn-primary" href="mailto:neeldshah05@gmail.com">Email me</a>
+      <a class="btn" href="https://www.linkedin.com/in/neel-shah-71a7b11b2" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn" href="https://github.com/Neel58" target="_blank" rel="noopener">GitHub ↗</a>
+      <a class="btn" href="https://www.kaggle.com/neeldipeshshah" target="_blank" rel="noopener">Kaggle ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Neel Shah. Built with care.</div>
+</footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 
 </body>
 </html>
